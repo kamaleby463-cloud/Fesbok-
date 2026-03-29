@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FB-APP | المطور كمال</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap');
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #050505;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes ultraLoading { 0% { width: 0%; } 100% { width: 100%; } }
+        @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+        @keyframes pulse-scale { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes bounce-slow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes fade-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .animate-ultra-loading { animation: ultraLoading 4s linear forwards; }
+        .animate-shimmer { animation: shimmer 2s infinite; }
+        .animate-pulse-scale { animation: pulse-scale 2s infinite; }
+        .animate-bounce-slow { animation: bounce-slow 3s infinite; }
+        .animate-fade-up { animation: fade-up 1s ease-out forwards; }
+        .animate-spin-slow { animation: spin-slow 4s linear infinite; }
+
+        .shimmer-overlay {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: skewX(-20deg);
+            animation: shimmer 2.5s infinite;
+        }
+
+        /* Facebook Themes */
+        .theme-blue { --primary: #1877F2; --primary-dark: #1157b3; --accent-glow: rgba(24, 119, 242, 0.4); }
+        .theme-dark { --primary: #3b5998; --primary-dark: #2d4373; --accent-glow: rgba(59, 89, 152, 0.4); }
+        .theme-teal { --primary: #008080; --primary-dark: #004d4d; --accent-glow: rgba(0, 128, 128, 0.4); }
+
+        .bg-primary { background-color: var(--primary); transition: background-color 0.3s; }
+        .text-primary { color: var(--primary); transition: color 0.3s; }
+        .border-primary { border-color: var(--primary); transition: border-color 0.3s; }
+        .shadow-primary-glow { box-shadow: 0 0 20px var(--accent-glow); }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        
+        /* Video Aspect Ratio fix */
+        video { outline: none; }
+    </style>
+</head>
+<body class="theme-blue transition-colors duration-500">
+
+    <div id="splash" class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center transition-opacity duration-1000">
+        <div class="relative flex flex-col items-center">
+            <div class="relative mb-10 group">
+                <div class="absolute -inset-10 bg-primary opacity-30 rounded-full blur-3xl animate-pulse"></div>
+                <div class="w-32 h-32 bg-gradient-to-br from-gray-900 to-black rounded-[2.5rem] flex items-center justify-center shadow-2xl relative border border-white/20 animate-bounce-slow overflow-hidden">
+                    <i class="fa-brands fa-facebook-f text-6xl text-primary animate-pulse-scale relative z-10"></i>
+                    <div class="shimmer-overlay"></div>
+                </div>
+                <div class="absolute -top-2 -right-2 bg-amber-500 p-2 rounded-full shadow-lg border-4 border-black animate-bounce">
+                    <i class="fa-solid fa-crown text-white text-xs"></i>
+                </div>
+            </div>
+            
+            <div class="text-center space-y-4">
+                <h1 class="text-5xl font-black italic tracking-tighter text-white animate-fade-up">FB-APP</h1>
+                <div class="flex flex-col items-center opacity-0 animate-fade-up" style="animation-delay: 0.5s;">
+                    <div class="flex items-center gap-2 text-primary font-bold tracking-[0.3em] text-[10px] uppercase mb-1">
+                        <i class="fa-solid fa-wand-magic-sparkles animate-spin-slow"></i>
+                        <span>برمجة وتطوير</span>
+                    </div>
+                    <p class="text-white font-black text-2xl tracking-wide">المطور كمال</p>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-24 w-64 h-1.5 bg-white/5 rounded-full overflow-hidden">
+            <div class="h-full bg-primary animate-ultra-loading"></div>
+        </div>
+    </div>
+
+    <div id="app" class="hidden min-h-screen bg-[#050505]">
+        <nav class="p-4 border-b border-white/5 bg-black/80 backdrop-blur-3xl sticky top-0 z-50">
+            <div class="max-w-5xl mx-auto flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg border border-white/10 relative overflow-hidden group">
+                        <i class="fa-brands fa-facebook-f text-white text-xl"></i>
+                        <div class="shimmer-overlay group-hover:block"></div>
+                    </div>
+                    <div>
+                        <h1 class="text-base font-black uppercase tracking-tight">FB-App</h1>
+                        <span class="text-[9px] text-primary font-bold uppercase flex items-center gap-1">
+                            <span class="w-1 h-1 rounded-full bg-green-500 animate-ping"></span>
+                            بواسطة كمال
+                        </span>
+                    </div>
+                </div>
+                <button onclick="toggleTheme()" class="p-2 bg-white/5 text-primary rounded-full border border-white/10 px-4 flex items-center gap-2 hover:bg-white/10 transition-all">
+                    <i class="fa-solid fa-palette"></i>
+                    <span class="text-[10px] font-black uppercase hidden sm:inline-block">تغيير الثيم</span>
+                </button>
+            </div>
+        </nav>
+
+        <main class="max-w-4xl mx-auto px-6 py-12">
+            <div class="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6 text-right">
+                <div class="animate-fade-up">
+                    <h2 class="text-4xl font-black mb-2 italic tracking-tight">محمل فيديوهات فيسبوك</h2>
+                    <p class="text-gray-500 text-sm font-medium">قم بتنزيل مقاطع الفيديو العامة والريلز (Reels) بجودات متعددة مجاناً.</p>
+                </div>
+                <div class="inline-flex items-center gap-3 bg-white/5 px-5 py-3 rounded-2xl border border-white/5 hover:bg-white/10 transition-colors group w-max">
+                    <div class="p-2 bg-primary/10 rounded-xl group-hover:rotate-12 transition-transform">
+                        <i class="fa-solid fa-code text-primary"></i>
+                    </div>
+                    <div class="flex flex-col items-start">
+                        <span class="text-[9px] font-black text-gray-500 uppercase">Lead Developer</span>
+                        <span class="text-sm font-bold text-white">المطور كمال</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative mb-16">
+                <div class="absolute -inset-4 bg-primary rounded-[3rem] blur-3xl opacity-10 animate-pulse"></div>
+                <div class="relative bg-[#0f0f0f] border border-white/10 p-4 rounded-[2.5rem] shadow-2xl shadow-primary-glow">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex-1 flex items-center bg-black/40 rounded-2xl px-6 py-5 border border-white/5 focus-within:border-primary/40 transition-all">
+                            <i class="fa-brands fa-facebook text-gray-600 ml-4 text-xl"></i>
+                            <input type="text" id="videoUrl" placeholder="ألصق رابط فيديو أو ريلز فيسبوك هنا..." class="bg-transparent border-none outline-none w-full text-left font-mono text-primary text-sm placeholder:text-gray-700" dir="ltr">
+                        </div>
+                        <button onclick="fetchMedia()" id="btn-fetch" class="bg-white text-black font-black px-12 py-5 rounded-2xl hover:bg-primary hover:text-white transition-all active:scale-95 flex items-center justify-center gap-3 text-lg shadow-xl disabled:opacity-70">
+                            <span id="btn-text">جلب الفيديو</span>
+                            <i id="btn-icon" class="fa-solid fa-cloud-arrow-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="error-msg" class="hidden p-6 bg-red-500/10 border border-red-500/20 rounded-3xl items-center gap-4 text-red-400 mb-10 text-right transition-all">
+                <i class="fa-solid fa-triangle-exclamation text-2xl flex-shrink-0"></i>
+                <p id="error-text" class="font-bold text-sm sm:text-base"></p>
+            </div>
+
+            <div id="result" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-10 animate-fade-up">
+                <div id="media-preview" class="bg-black rounded-[3rem] border border-white/10 overflow-hidden shadow-2xl relative h-[450px] lg:h-[550px] group flex items-center justify-center">
+                    <div id="preview-placeholder" class="relative w-full h-full flex items-center justify-center">
+                         <img id="preview-thumbnail" class="w-full h-full object-cover opacity-80" src="" alt="Video Thumbnail">
+                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                         <div class="absolute inset-0 flex items-center justify-center">
+                             <div class="w-16 h-16 bg-primary/80 backdrop-blur-md rounded-full flex items-center justify-center text-white text-2xl shadow-lg border border-white/20">
+                                 <i class="fa-solid fa-play ml-1"></i>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#0a0a0a] border border-white/10 p-8 sm:p-10 rounded-[3rem] flex flex-col justify-between shadow-2xl relative overflow-hidden text-right">
+                    <div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/20 text-primary text-[10px] font-black rounded-full border border-primary/30 uppercase tracking-widest">
+                                Facebook Video
+                            </span>
+                        </div>
+                        <h2 id="media-title" class="text-xl sm:text-2xl font-black leading-tight mb-8 line-clamp-3 text-white/95" dir="auto"></h2>
+                        <div class="inline-flex items-center gap-3 p-2 pr-5 bg-white/5 rounded-full border border-white/5 mb-10">
+                            <div id="author-avatar" class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-sm font-black text-white uppercase shadow-md">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <p id="author-name" class="text-white font-black text-sm" dir="ltr"></p>
+                        </div>
+                    </div>
+
+                    <div id="download-box" class="space-y-4">
+                        </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="py-12 text-center space-y-4 border-t border-white/5 mt-10">
+            <p class="text-[10px] font-black uppercase tracking-[0.5em] text-gray-500">Developed With Passion By</p>
+            <p class="text-white font-black text-xl tracking-widest italic flex items-center gap-3 justify-center uppercase">
+                KAMAL <span class="text-primary">DEVELOPER</span>
+            </p>
+        </footer>
+    </div>
+
+    <div id="sub-modal" class="fixed inset-0 z-[200] bg-black/80 backdrop-blur-md hidden flex-col items-center justify-center p-4">
+        <div class="bg-[#0f0f0f] border border-white/10 p-8 rounded-[2.5rem] shadow-2xl max-w-sm w-full text-center relative animate-fade-up">
+            <div class="absolute -inset-10 bg-primary opacity-20 rounded-full blur-3xl"></div>
+            <div class="relative z-10 flex flex-col items-center gap-5">
+                <div class="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center border border-primary/30">
+                    <i class="fa-brands fa-facebook-f text-4xl text-primary animate-pulse"></i>
+                </div>
+                <h3 class="text-2xl font-black text-white">دعم المطور</h3>
+                <p class="text-gray-400 text-sm leading-relaxed font-medium">لتتمكن من تنزيل الفيديوهات، يرجى متابعة صفحة المطور لمرة واحدة فقط.</p>
+                <div class="w-full space-y-3 mt-2">
+                    <button onclick="goToFacebook()" class="w-full bg-primary text-white font-black py-4 rounded-2xl flex items-center justify-center gap-3 transition-all hover:brightness-110 active:scale-95 shadow-lg shadow-primary/30">
+                        <i class="fa-brands fa-facebook"></i>
+                        <span>متابعة الآن</span>
+                    </button>
+                    <button id="btn-close-modal" onclick="closeSubModal()" class="w-full bg-white/5 text-gray-500 font-bold py-4 rounded-2xl flex items-center justify-center transition-all disabled:opacity-50" disabled>
+                        <span>تمت المتابعة، دخول</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 z-[300] pointer-events-none font-bold text-sm">
+        رسالة
+    </div>
+
+    <script>
+        let currentThemeIndex = 0;
+        const themes = ['blue', 'dark', 'teal'];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash');
+                splash.classList.add('opacity-0');
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    document.getElementById('app').classList.remove('hidden');
+                    checkSub();
+                }, 1000);
+            }, 3000); 
+        });
+
+        function checkSub() {
+            if (localStorage.getItem('is_fb_follower_forever') !== 'true') {
+                const modal = document.getElementById('sub-modal');
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function goToFacebook() {
+            const facebookUrl = "https://www.facebook.com/profile.php"; 
+            window.open(facebookUrl, '_blank');
+            const closeBtn = document.getElementById('btn-close-modal');
+            closeBtn.disabled = false;
+            closeBtn.classList.remove('text-gray-500', 'bg-white/5');
+            closeBtn.classList.add('text-white', 'bg-primary/20', 'border', 'border-primary/50');
+            closeBtn.querySelector('span').innerText = 'الدخول للتطبيق الآن';
+        }
+
+        function closeSubModal() {
+            localStorage.setItem('is_fb_follower_forever', 'true');
+            document.getElementById('sub-modal').classList.add('hidden');
+        }
+
+        function toggleTheme() {
+            document.body.classList.remove(`theme-${themes[currentThemeIndex]}`);
+            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+            document.body.classList.add(`theme-${themes[currentThemeIndex]}`);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 3000);
+        }
+
+        async function fetchMedia() {
+            const urlInput = document.getElementById('videoUrl');
+            const url = urlInput.value.trim();
+            const btnText = document.getElementById('btn-text');
+            const btnIcon = document.getElementById('btn-icon');
+            const errorMsg = document.getElementById('error-msg');
+            const resultDiv = document.getElementById('result');
+            
+            if (!url) { showError('يرجى إدخال الرابط'); return; }
+            if (!url.includes('facebook.com') && !url.includes('fb.watch')) {
+                showError('عذراً، هذا النظام يدعم روابط فيسبوك فقط.'); return;
+            }
+
+            btnText.innerText = 'جاري التحليل...';
+            btnIcon.className = 'fa-solid fa-spinner animate-spin';
+            errorMsg.classList.add('hidden');
+            resultDiv.classList.add('hidden');
+
+            try {
+                const BASE_URL = "http://localhost:8000"; 
+
+                const response = await fetch(`${BASE_URL}/download`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: url, quality: "best" })
+                });
+
+                const data = await response.json();
+
+                if (data.status === "success") {
+                    renderResult(data);
+                } else {
+                    showError(data.message || 'فشل استخراج الفيديو. تأكد من أن الفيديو عام (Public)');
+                }
+
+            } catch (err) {
+                showError('لا يمكن الاتصال بالسيرفر. تأكد من تشغيل الـ Backend.');
+            } finally {
+                btnText.innerText = 'جلب الفيديو';
+                btnIcon.className = 'fa-solid fa-cloud-arrow-down';
+            }
+        }
+
+        function renderResult(data) {
+            const resultDiv = document.getElementById('result');
+            const mediaPreview = document.getElementById('media-preview'); 
+            const downloadBox = document.getElementById('download-box');
+            
+            resultDiv.classList.remove('hidden');
+            document.getElementById('media-title').innerText = data.video_info.title || 'فيديو فيسبوك';
+            document.getElementById('author-name').innerText = data.video_info.uploader || 'مستخدم فيسبوك';
+
+            // --- التعديل الجوهري: تبديل الصورة بمشغل فيديو حقيقي ---
+            mediaPreview.innerHTML = `
+                <video id="fb-player" controls class="w-full h-full object-contain rounded-[3rem] shadow-2xl bg-black" poster="${data.video_info.thumbnail}">
+                    <source src="${data.download_url}" type="video/mp4">
+                    متصفحك لا يدعم تشغيل هذا الفيديو.
+                </video>
+            `;
+
+            let html = `
+                <a href="${data.download_url}" target="_blank" download class="w-full bg-primary text-white font-black py-5 rounded-[1.8rem] flex items-center justify-center gap-4 transition-all active:scale-[0.97] shadow-xl text-lg hover:brightness-110">
+                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                    <span>تحميل الفيديو (أفضل جودة)</span>
+                </a>
+            `;
+
+            if (data.available_formats && data.available_formats.length > 0) {
+                data.available_formats.forEach(format => {
+                    html += `
+                        <a href="${format.url}" target="_blank" download class="w-full bg-white/5 border border-white/10 text-white font-black py-4 rounded-[1.5rem] flex items-center justify-center gap-3 hover:bg-white/10 transition-all text-sm active:scale-[0.97]">
+                            <i class="fa-solid fa-film"></i>
+                            <span>جودة: ${format.quality}</span>
+                        </a>
+                    `;
+                });
+            }
+
+            html += `
+                <button onclick="copyLink()" class="w-full mt-2 bg-transparent text-gray-400 font-bold py-3 rounded-xl flex items-center justify-center gap-2 hover:text-white transition-colors text-xs">
+                    <i class="fa-solid fa-link"></i>
+                    <span>نسخ رابط الفيديو الأصلي</span>
+                </button>
+            `;
+
+            downloadBox.innerHTML = html;
+            setTimeout(() => resultDiv.scrollIntoView({ behavior: 'smooth' }), 100);
+        }
+
+        function showError(text) {
+            document.getElementById('error-text').innerText = text;
+            const errorMsg = document.getElementById('error-msg');
+            errorMsg.classList.remove('hidden');
+            errorMsg.classList.add('flex');
+        }
+
+        function copyLink() {
+            const url = document.getElementById('videoUrl').value;
+            const textArea = document.createElement("textarea");
+            textArea.value = url;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast("تم نسخ رابط الفيديو بنجاح!");
+            } catch (err) {
+                showToast("فشل في نسخ الرابط.");
+            }
+            textArea.remove();
+        }
+    </script>
+</body>
+</html>
